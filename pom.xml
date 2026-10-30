@@ -21,8 +21,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.release>25</maven.compiler.release>
 
-        <!-- CHANGE THIS to your real main class (used by exec:java and the shaded jar) -->
-        <app.mainClass>com.me.App</app.mainClass>
+
+        <app.mainClass>com.me</app.mainClass>
 
         <!-- Versions shared by several artifacts -->
         <spring.version>7.1.0-M2</spring.version>
@@ -245,7 +245,7 @@
             <version>7.1.0</version>
         </dependency>
 
-        <!-- Drivers: only needed at runtime, your code uses javax.sql.DataSource / JPA -->
+        <!-- Drivers: only needed at runtime,  code uses javax.sql.DataSource / JPA -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>

@@ -1,0 +1,32 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="VulnerableLibrariesLocal" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="isIgnoringEnabled" value="true" />
+      <option name="ignoredModules">
+        <list>
+          <option value="SpringOnly" />
+          <option value="SpringOnly" />
+          <option value="SpringOnly" />
+          <option value="SpringOnly" />
+        </list>
+      </option>
+      <option name="ignoredPackages">
+        <list>
+          <option value="com.fasterxml.jackson.core:jackson-databind:2.12.7.1" />
+          <option value="com.fasterxml.jackson.core:jackson-core:2.12.7" />
+          <option value="org.ow2.asm:asm:9.7.1" />
+          <option value="net.minidev:json-smart:2.6.0" />
+        </list>
+      </option>
+      <option name="ignoredReasons">
+        <list>
+          <option value="Not exploitable" />
+          <option value="In progress" />
+          <option value="In progress" />
+          <option value="In progress" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

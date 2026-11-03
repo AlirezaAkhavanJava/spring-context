@@ -1,8 +1,10 @@
 package com.me;
 
+import lombok.NonNull;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ProductRepository {
+public interface ProductRepository extends JpaRepository<@NonNull Product, @NonNull Long> {
 
 }

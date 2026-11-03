@@ -14,5 +14,6 @@ public class App {
         System.out.println(service.getAuthor());
         ProductController controller = context.getBean(ProductController.class);
         System.out.println(controller);
+        System.out.println(System.getProperty("user.dir"));
     }
 }

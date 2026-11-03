@@ -2,12 +2,85 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-               http://www.springframework.org/schema/beans
-               https://www.springframework.org/schema/beans/spring-beans.xsd
-               http://www.springframework.org/schema/context
-               https://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:tx="http://www.springframework.org/schema/tx"
 
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           https://www.springframework.org/schema/beans/spring-beans.xsd
+
+           http://www.springframework.org/schema/context
+           https://www.springframework.org/schema/context/spring-context.xsd
+
+           http://www.springframework.org/schema/data/jpa
+           https://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+
+           http://www.springframework.org/schema/tx
+           https://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- Component Scanning -->
     <context:component-scan base-package="com.me"/>
+
+    <!-- Database Connection -->
+    <bean id="dataSource"
+          class="com.zaxxer.hikari.HikariDataSource">
+
+        <property name="jdbcUrl"
+                  value="jdbc:sqlite:springOnly.db"/>
+
+        <property name="driverClassName"
+                  value="org.sqlite.JDBC"/>
+
+    </bean>
+
+    <!-- EntityManagerFactory -->
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+
+        <property name="dataSource" ref="dataSource"/>
+
+        <!-- Scan for JPA entities -->
+        <property name="packagesToScan" value="com.me"/>
+
+        <!-- Hibernate JPA Provider -->
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+
+                <property name="databasePlatform"
+                          value="org.hibernate.community.dialect.SQLiteDialect"/>
+
+                <property name="showSql" value="true"/>
+
+            </bean>
+        </property>
+
+        <!-- Hibernate Properties -->
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.format_sql">true</prop>
+            </props>
+        </property>
+
+    </bean>
+
+    <!-- Transaction Manager -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.jpa.JpaTransactionManager">
+
+        <property name="entityManagerFactory"
+                  ref="entityManagerFactory"/>
+
+    </bean>
+
+    <!-- Enable @Transactional -->
+    <tx:annotation-driven
+            transaction-manager="transactionManager"/>
+
+    <!-- Spring Data JPA Repository Scanning -->
+    <jpa:repositories
+            base-package="com.me"
+            entity-manager-factory-ref="entityManagerFactory"
+            transaction-manager-ref="transactionManager"/>
 
 </beans>
